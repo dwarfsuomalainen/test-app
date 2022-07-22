@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import Recipes from './components/Recipes';
+import AddRecipe from './components/AddRecipe';
+import {useState} from "react"
 
 function App() {
+  const [recipes, setRecipes] = useState([{
+    "id": 1,
+    "name": "Pasta",
+    "vege": true
+  },
+  {
+    "id": 2,
+    "name": "Pizza",
+    "vege": false 
+  }
+
+])
+ 
+const addRecipe = (recipe) => {
+  const id = Math.floor(Math.random()*1000000 + 1000)
+  const newRecipe = {id, ...recipe}
+  setRecipes([...recipes, newRecipe])
+}
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Recipes recipes={recipes}/>
+      <AddRecipe onAdd={addRecipe} />
     </div>
   );
 }
